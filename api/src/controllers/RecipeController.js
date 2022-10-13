@@ -21,8 +21,51 @@ const getAllRecipes = async (req, res, next)=>{
   }
 }
 
-const getRecipeById = 0;
+const getRecipeById = async(req, res, next)=> {
+  const {id} = req.params;
+  const db = await getDataDB();
+  const api = await getDataApiById(id);
+  const data = api.concat(db)
 
+  if(id){
+    const recipeId = data.filter(d => d.id == id)
+    console.log(recipeId);
+    recipeId.length?
+    res.json(recipeId):
+    res.status(400).send(`No encontramos conincidencias con el id: ${id}`)
+  }
+};
+
+
+const postRecipe = async (req, res, next) =>{
+  let {
+    name,
+    summary,
+    allowNull,
+    healthScore,
+    steps,
+    img,
+    diets,
+
+  }= req.body;
+ 
+  let dietCreate = await Recipe.create({//Creammos nueva fila al modelo videogames
+    name,
+    summary,
+    allowNull,
+    healthScore,
+    steps,
+    img: img.length > 0?img:"https://www.kindpng.com/picc/m/198-1980021_food-vector-food-icon-png-transparent-png.png"
+  });
+ 
+  let dietDB = await Diet.findAll({//Obtenemos los generos de nuestra DB
+    where: {name: diets}
+  });
+
+  await dietCreate.addDiet(dietDB);//Vinculamos los respectivos generos a la nueva fila
+  res.send("Receta creada exitosamente");
+
+}
 //----------Funciones auxiliares----------------
 async function AllData(){
   const api = await getDataApi();
@@ -34,10 +77,11 @@ async function AllData(){
 
 async function getDataApi(){
   let data = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${CLAVE}&addRecipeInformation=true`)).data.results.map(recipe =>({
-   
+    id: recipe.id,
     name: recipe.title,
     img: recipe.image,
     diets: recipe.diets,
+    healtScore: recipe.healtScore,
     created: false
 
    
@@ -60,38 +104,58 @@ async function getDataDB() {
 
 async function getDataDBFix(){
   let list = await getDataDB();
-  let fix = list.map(el =>({
+  if (list) {
+    let fix = list.map(el =>({
     id:el.id,
     name:el.name,
     summary:el.summary,
-    score: el.score,
+    healtScore: el.healtScore,
     steps: el.steps,
     created: el.createInDB,
-    diets: el.diets.map(d=>d.name)
-  }))
-  return fix;
+    diets: el.diets.map(d=>d.name),
+    img: el.img
+    }))
+    return fix
+  }
+  
+  return list;
 }
 
 async function getDataApiById(id){
   try{
-    let data = (await axios(`https://api.spoonacular.com/recipes/${id}/information?key=${CLAVE}`)).data;
+    let data = (await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${CLAVE}&includeNutrition=false`)).data;
   data=[data];
   data=data.map(d =>({
     id: d.id,
     name: d.title,
     img: d.image,
-    diets: d.diets || ["Sin definir..."],
-    healtScore:d.healtScore,
-    rating:d.rating,
-    plataforms:d.parent_platforms.map(p => p.platform.name),
-    description:d.description,
+    diets: d.diets.length > 0 ?
+    d.diets:
+    ["Sin definir..."],
+    healthScore:d.healthScore,
+    steps:d.analyzedInstructions[0]?
+    d.analyzedInstructions[0].steps.map(s => (
+      {
+        stepNumber: s.number,
+        step: s.step
+      }
+    )):
+    ["Sin definir..."],
+    
+    summary:d.summary,
     created: false
   })); 
+  console.log(data);
   return data;
-  } catch (error){return [];}
+  } catch (error){
+    return [];}
   
 }
 //716426
 
 
-getDataApi();
+module.exports={
+  getAllRecipes,
+  getRecipeById,
+  postRecipe
+}

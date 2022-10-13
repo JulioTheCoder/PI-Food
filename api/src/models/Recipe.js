@@ -18,16 +18,23 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    healtScore:{
+    healthScore:{
       type:DataTypes.INTEGER,
     },
     steps:{
       type:DataTypes.JSON
+    },
+    img:{
+      type:DataTypes.STRING,
+      defaultValue: "https://www.kindpng.com/picc/m/198-1980021_food-vector-food-icon-png-transparent-png.png"
     },
     createInDB:{
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
     }
+  },
+  {
+		timestamps: false
   });
 };
