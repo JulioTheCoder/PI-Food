@@ -1,8 +1,8 @@
 const axios = require("axios");
 const {Diet, Recipe} = require("./../db");
-/* require('dotenv').config();
-const {API_KEY} = require("./../db") */
-const CLAVE = "b47ac610270549a8828564583724296f";
+require('dotenv').config();
+const { API_KEY } = process.env;
+
 //---------controladores--------------
 
 const getAllRecipes = async (req, res, next)=>{
@@ -76,7 +76,7 @@ async function AllData(){
 };
 
 async function getDataApi(){
-  let data = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${CLAVE}&addRecipeInformation=true`)).data.results.map(recipe =>({
+  let data = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true`)).data.results.map(recipe =>({
     id: recipe.id,
     name: recipe.title,
     img: recipe.image,
@@ -123,7 +123,7 @@ async function getDataDBFix(){
 
 async function getDataApiById(id){
   try{
-    let data = (await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${CLAVE}&includeNutrition=false`)).data;
+    let data = (await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&includeNutrition=false`)).data;
   data=[data];
   data=data.map(d =>({
     id: d.id,
