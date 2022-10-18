@@ -81,7 +81,7 @@ async function getDataApi(){
     name: recipe.title,
     img: recipe.image,
     diets: recipe.diets,
-    healtScore: recipe.healtScore,
+    healthScore: recipe.healthScore,
     created: false
 
    
