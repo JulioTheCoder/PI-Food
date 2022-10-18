@@ -76,7 +76,7 @@ async function AllData(){
 };
 
 async function getDataApi(){
-  let data = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true`)).data.results.map(recipe =>({
+  let data = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=45`)).data.results.map(recipe =>({
     id: recipe.id,
     name: recipe.title,
     img: recipe.image,

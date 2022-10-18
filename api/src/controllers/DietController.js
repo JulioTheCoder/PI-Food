@@ -1,20 +1,28 @@
 const axios = require("axios");
 const { Diet } = require("./../db");
+require('dotenv').config();
+const { API_KEY } = process.env;
 
-const loadingDiets = () =>{
-  const diets = [
-    "Gluten Free",
-    "Ketogenic",
-    "Vegetarian",
-    "Lacto-Vegetarian",
-    "Ovo-Vegetarian",
-    "Vegan",
-    "Pescetarian",
-    "Paleo",
-    "Primal",
-    "Low FODMAP",
-    "Whole30"
+const loadingDiets = async () =>{
+  let dietsDefault = [
+    "gluten free",
+    "ketogenic",
+    "vegetarian",
+    "lacto-vegetarian",
+    "ovo-vegetarian",
+    "vegan",
+    "pescetarian",
+    "paleo",
+    "primal",
+    "low fodmap",
+    "whole30"
   ];
+
+  let dietsApi = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=45`))
+  .data.results.map(d => d.diets);
+  dietsApi = dietsApi.flat();
+  const diets = [...new Set(dietsDefault.concat(dietsApi))];//Método de métodos, genial para sacar valores de forma única de un array
+  
 
   diets.forEach(d =>{
     Diet.findOrCreate({
@@ -25,6 +33,8 @@ const loadingDiets = () =>{
   console.log("Dietas cargadas a la DB");
 
 }
+
+loadingDiets();
 
 const getDietsDB = (req, res, next) =>{
   Diet.findAll()
