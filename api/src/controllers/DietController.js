@@ -15,7 +15,7 @@ const loadingDiets = async () =>{
     "paleo",
     "primal",
     "low fodmap",
-    "whole30"
+    "whole 30"
   ];
 
   let dietsApi = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=45`))
