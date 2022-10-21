@@ -34,7 +34,7 @@ const loadingDiets = async () =>{
 
 }
 
-loadingDiets();
+
 
 const getDietsDB = (req, res, next) =>{
   Diet.findAll()

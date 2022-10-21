@@ -109,7 +109,7 @@ async function getDataDBFix(){
     id:el.id,
     name:el.name,
     summary:el.summary,
-    healtScore: el.healtScore,
+    healthScore: el.healthScore,
     steps: el.steps,
     created: el.createInDB,
     diets: el.diets.map(d=>d.name),
