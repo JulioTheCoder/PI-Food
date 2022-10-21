@@ -1,7 +1,8 @@
 let initialState ={
   recipes: [],
   allRecipes: [],
-  diets: []
+  diets: [],
+  details:[]
 
 }
 
@@ -94,12 +95,13 @@ function rootReducer(state = initialState, action){
         recipes:ordenRatingArr
       }
 
-    case "GET_VIDEOGAME_BY_NAME":
+    case "GET_BY_NAME":
       return{
         ...state,
-        videogames:action.payload
+        recipes:action.payload
       }
-    case "POST_VIDEOGAME":
+      
+    case "POST_RECIPE":
       return{
         ...state
       }

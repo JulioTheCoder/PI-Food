@@ -2,7 +2,7 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Landing from "./components/Landing";
 import Home from './components/Home';
-
+import { RecipeCreate } from './components/RecipeCreate';
 function App() {
   return (
     <BrowserRouter>
@@ -11,7 +11,7 @@ function App() {
           <Route exact path={"/"} component={Landing}/>
           {/* <Route path={"/home/:id"} component={Detail}/> */}
           <Route path={"/home"} component={Home}/>
-          {/* <Route path={"/recipe"} component={RecipeCreate}/> */}
+          <Route path={"/recipe"} component={RecipeCreate}/>
         </Switch>
       </div>
     </BrowserRouter>

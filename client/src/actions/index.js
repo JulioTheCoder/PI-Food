@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export function getRecipes() {
   return async function(dispatch){
     const data = (await axios("http://localhost:3001/recipes")).data;
@@ -49,5 +50,37 @@ export function orderByHealthScore(payload){
   return{
     type: "ORDER_BY_HEALTHSCORE",
     payload
+  }
+}
+
+export function getRecipeByName(payload) {
+  return async (dispatch) =>{
+    try{
+      let json = (await axios(`http://localhost:3001/recipes/?name=${payload}`)).data
+      return dispatch({
+        type: "GET_BY_NAME",
+        payload:json
+      })
+    } catch(error){console.error(error);}
+  }
+}
+
+export function postRecipe(payload) {
+  return async (dispatch)=>{
+    const json = await axios.post(`http://localhost:3001/recipes`,payload);
+    return json
+  }
+}
+
+export function getDetails(id){
+  return async(dispatch)=>{
+    try{
+      let json =(await axios(`http://localhost:3001/recipes/${id}`)).data;
+      console.log(json)
+      return dispatch({
+        type: "GET_DETAILS",
+        payload: json
+      })
+    } catch(error){console.error(error)}
   }
 }

@@ -7,9 +7,9 @@ export default function Card({img, name, diets, healthScore, id,}) {
       <div>
         <img src={img} alt={"image not found"}  width={"200px"} height={"250px"} />
         <h2>{name}</h2>
-        <h2>Puntos de salud.</h2>
+        <h2>Health score.</h2>
         <h3>{healthScore}</h3>
-        <h2>Dietas</h2>
+        <h2>Diet</h2>
         <h3>{diets.join(", ")}</h3>
       </div>
     </Link>

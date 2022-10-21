@@ -3,16 +3,16 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../actions";
 import { Link } from "react-router-dom";
-import SelectOptions from "./SelectOptions";
 import Card from "./Card";
 import Paginado from "./Paginado";
+import Nav from "./Nav";
 
 
 export default function Home(){
 
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
-  const allDiets = useSelector((state) => state.diets)
+  const allDiets = useSelector((state) => state.diets);
   const [currentPage, setCurrentPage] = useState(1);
   const [ recipesPerPage, setReciPeperPage] = useState(9);
   const [ order, setOrder ] = useState("")
@@ -30,7 +30,7 @@ export default function Home(){
     dispatch(action.getDiets());
   },[dispatch]);
 
-  function handleClick(e){
+  function handlerClick(e){
     e.preventDefault();
     dispatch(action.getRecipes());
   }
@@ -47,7 +47,7 @@ export default function Home(){
 
   function handlerOderByTitle(e) {
     if (e.target.value === "default") {
-      handleClick(e);
+      handlerClick(e);
     } else {
       e.preventDefault();
       dispatch(action.orderByName(e.target.value));
@@ -57,9 +57,10 @@ export default function Home(){
     
   }
 
-  function handlerOderByHealthScoer(e) {
+  
+  function handlerOderByHealthScoer(e){
     if (e.target.value === "default") {
-      handleClick(e);
+      handlerClick(e);
     } else {
       e.preventDefault();
       dispatch(action.orderByHealthScore(e.target.value));
@@ -69,13 +70,13 @@ export default function Home(){
     
   }
 
+  
+
   return (
     <div>
-      <Link to={"/recipe"}></Link>
-      <h1>Home</h1>
-      <button onClick={e => handleClick(e)}>Refresh</button>
+      
 
-      <div>
+      {/* <div>
         <select onChange={(e) => handlerOderByTitle(e)}>
           <option value={"default"}>Title</option>
           <option value={"asc"}>Ascendente</option>
@@ -98,7 +99,19 @@ export default function Home(){
           <option value={"api"}>Api</option>
           <option value={"created"}>Created</option>
         </select>
-      </div>
+      </div> */}
+      <Nav
+        handlerClick={handlerClick}
+        handlerOderByTitle={handlerOderByTitle}
+        handlerOderByHealthScoer={handlerOderByHealthScoer}
+        handlerFilterByDiet={handlerFilterByDiet}
+        handlerFilterApi_Created={handlerFilterApi_Created}
+      />
+
+      <Link to={"/recipe"}><button>Create</button></Link>
+      
+      <button onClick={e => handlerClick(e)}>Refresh</button>
+      
       <Paginado 
         recipePerPage={recipesPerPage}
         allRecipes={allRecipes.length}
