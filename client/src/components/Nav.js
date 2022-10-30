@@ -1,13 +1,13 @@
 import React from "react";
 import Selectors from "./Selectors";
 import SearchBar from "./SearchBar";
+import s from "./../styles/Nav.module.css"
 
-
-export default function Nav({handlerClick, handlerOderByTitle, handlerOderByHealthScoer, handlerFilterByDiet, handlerFilterApi_Created}){
+export default function Nav({paginado, handlerClick, handlerOderByTitle, handlerOderByHealthScoer, handlerFilterByDiet, handlerFilterApi_Created}){
   return(
-    <div className="nav">
+    <div className={s.nav}>
       <h1>Home</h1>
-      <SearchBar/>
+      <SearchBar paginado={paginado}/>
       <Selectors 
       handlerClick={handlerClick} 
       handlerOderByTitle={handlerOderByTitle} 

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
 import Nav from "./Nav";
-
+import s from "./../styles/Home.module.css"
 
 export default function Home(){
 
@@ -101,6 +101,7 @@ export default function Home(){
         </select>
       </div> */}
       <Nav
+      paginado={paginado}
         handlerClick={handlerClick}
         handlerOderByTitle={handlerOderByTitle}
         handlerOderByHealthScoer={handlerOderByHealthScoer}
@@ -117,7 +118,7 @@ export default function Home(){
         allRecipes={allRecipes.length}
         paginado={paginado}
        />
-      <div>
+      <div className={s.cards}>
         {
           allRecipes && currentRecipe.map(r => {
             return(<Card key={r.id} id={r.id} name={r.name} img={r.img} diets={r.diets} healthScore={r.healthScore} />)

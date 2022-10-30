@@ -1,0 +1,24 @@
+
+
+.selectors select{
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid rgb(197, 79, 0);
+  color: rgb(197, 79, 0);
+  font-weight: bold;
+  transition-duration: 0.2s;
+}
+
+.selectors select:hover{
+  background-color:rgb(197, 79, 0);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.selectors select:focus{
+  background-color:rgb(224, 90, 0);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border:none;	
+  outline:none;
+}

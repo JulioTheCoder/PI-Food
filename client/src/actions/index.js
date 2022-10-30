@@ -53,6 +53,13 @@ export function orderByHealthScore(payload){
   }
 }
 
+export function clearDetails(){
+  return{
+    type: "CLEAR_DETAILS"
+    
+  }
+}
+
 export function getRecipeByName(payload) {
   return async (dispatch) =>{
     try{

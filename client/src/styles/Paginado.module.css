@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.paginado{
+  display: flex;
+  justify-content: center;
+}
+
+.list{
+  border: transparent;
+  border-radius: 7px;
+  list-style: none;
+  display: flex;
+}
+
+.list li{
+  padding: 10px;
+  font-family: Lobster, cursive;
+  color: rgb(197, 79, 0);
+  background-color: rgba(255, 125, 18, 0.4);
+  transition-duration: 0.2s;
+  border-right: 1px solid rgba(255, 115, 0, 0.199);
+}
+
+.list li:hover{
+  background-color: rgba(255, 115, 0, 0.6);
+}
+
+.list li:first-child{
+  border-top-left-radius: 7px ;
+  border-bottom-left-radius: 7px;
+}
+
+.list li:last-child{
+  border-top-right-radius: 7px ;
+  border-bottom-right-radius: 7px;
+  border-right: none;
+}
+

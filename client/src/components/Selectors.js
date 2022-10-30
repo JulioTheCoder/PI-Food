@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SelectOptions from "./SelectOptions";
-
+import s from "./../styles/Selectors.module.css"
 
 
 export default function Selectors({handlerOderByTitle, handlerOderByHealthScoer, handlerFilterByDiet, handlerFilterApi_Created}){
@@ -10,7 +10,7 @@ export default function Selectors({handlerOderByTitle, handlerOderByHealthScoer,
 
 
   return(
-    <div className="selectors">
+    <div className={s.selectors}>
         <select onChange={(e) => handlerOderByTitle(e)}>
           <option value={"default"}>Title</option>
           <option value={"asc"}>Ascendente</option>
