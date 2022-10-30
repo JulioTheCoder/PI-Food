@@ -2,8 +2,8 @@ const axios = require("axios");
 const {Diet, Recipe} = require("./../db");
 require('dotenv').config();
 const { API_KEY } = process.env;
-
-//---------controladores--------------
+ 
+//---------controladores-------------- 
 
 const getAllRecipes = async (req, res, next)=>{
   const data = await AllData();
@@ -23,7 +23,7 @@ const getAllRecipes = async (req, res, next)=>{
 
 const getRecipeById = async(req, res, next)=> {
   const {id} = req.params;
-  const db = await getDataDB();
+  const db = await getDataDBFix();
   const api = await getDataApiById(id);
   const data = api.concat(db)
 
