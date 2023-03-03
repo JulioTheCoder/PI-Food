@@ -7,6 +7,7 @@ import { clearDetails } from "../actions";
 import s from "./../styles/Details.module.css";
 
 export default function Detail(props){
+
   
   const dispatch = useDispatch()
 
@@ -19,37 +20,50 @@ export default function Detail(props){
   }
 
   const myRecipe = useSelector((state)=> state.details);
-  
+  console.log(myRecipe);
   return(
     <div>
     <Link to={"/home"} onClick={e => clearDet()}>
-        <button>Volver</button>
+        <button className={s.btn}>{"< Volver"}</button>
       </Link>
       <div className={s.info}>
         {
         myRecipe.length>0 ?
 
-        <div>
-          <h1>{myRecipe[0].name}</h1>
-          <img src={myRecipe[0].img} alt="Not Found Image" width={"300px"} height={"375px"}/>
-          <h2>Diets: {myRecipe[0].diets.join(", ")}</h2>
-          <h3>HealthScore: {myRecipe[0].healthScore}</h3>
-          <h3>Summary: {myRecipe[0].summary}</h3>
-          <h2>Steps</h2>
-          <div>
-            <ul> {
-              myRecipe[0].steps.map(s =>(
-                
-                <li key={s.stepNumber}>
-                  <h3>{s.stepNumber}</h3>
-                  <p>{s.step}</p>
-                </li>
-                
-              ))
-            }
-            </ul>
+        <div className={s.detail}>
+          <div className={s.info_principal}>
+            <img className={s.image} src={myRecipe[0].img} alt="Not Found Image" width={"350px"} height={"375px"}/>
+            <div className={s.primario}>
+              <h1>{myRecipe[0].title}</h1>
+              <h2>{`Diets: ${myRecipe[0].diets.join(", ")}`}</h2>
+              <h2>{`HealthScore: ${myRecipe[0].healthScore}`}</h2>
+              <div className={s.resumen}>
+                <h2>Summary:</h2>
+                <p dangerouslySetInnerHTML={{__html: myRecipe[0].summary}}></p>
+              </div>
+            </div>
           </div>
           
+            <div className={s.steps}>
+              
+              <div className={s.list}><h2>Steps</h2>
+                <ul> {
+                  myRecipe[0].steps.stepNumber?
+                  myRecipe[0].steps.map(s =>(
+                    
+                    <li key={s.stepNumber}>
+                      <h3>{`Step ${s.stepNumber}`}</h3>
+                      <p>{s.step}</p>
+                    </li>
+                    
+                  )):
+                  <p>No steps</p>
+                }
+                </ul>
+              </div>
+
+            </div>
+
         </div>:
         <p>Loading...</p>
       }
