@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 .card{
-  width: 350px;
+  width: 320px;
   height: 450px;
-  margin: 20px 80px;
+  margin: 10px 40px;
   font-family: Lobster, cursive;
   text-decoration: none;
   color: rgb(197, 79, 0);
