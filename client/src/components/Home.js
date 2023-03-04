@@ -121,7 +121,7 @@ export default function Home(){
       <div className={s.cards}>
         {
           allRecipes && currentRecipe.map(r => {
-            return(<Card key={r.id} id={r.id} name={r.name} img={r.img} diets={r.diets} healthScore={r.healthScore} />)
+            return(<Card key={r.id} id={r.id} title={r.title} img={r.img} diets={r.diets} healthScore={r.healthScore} />)
             })
         }
       </div>

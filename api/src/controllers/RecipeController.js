@@ -39,7 +39,7 @@ const getRecipeById = async(req, res, next)=> {
 
 const postRecipe = async (req, res, next) =>{
   let {
-    name,
+    title,
     summary,
     allowNull,
     healthScore,
@@ -50,7 +50,7 @@ const postRecipe = async (req, res, next) =>{
   }= req.body;
  
   let dietCreate = await Recipe.create({//Creammos nueva fila al modelo videogames
-    name,
+    title,
     summary,
     allowNull,
     healthScore,
@@ -78,7 +78,7 @@ async function AllData(){
 async function getDataApi(){
   let data = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=45`)).data.results.map(recipe =>({
     id: recipe.id,
-    name: recipe.title,
+    title: recipe.title,
     img: recipe.image,
     diets: recipe.diets,
     healthScore: recipe.healthScore,
@@ -107,7 +107,7 @@ async function getDataDBFix(){
   if (list) {
     let fix = list.map(el =>({
     id:el.id,
-    name:el.name,
+    title:el.title,
     summary:el.summary,
     healthScore: el.healthScore,
     steps: el.steps,
@@ -127,7 +127,7 @@ async function getDataApiById(id){
   data=[data];
   data=data.map(d =>({
     id: d.id,
-    name: d.title,
+    title: d.title,
     img: d.image,
     diets: d.diets.length > 0 ?
     d.diets:
